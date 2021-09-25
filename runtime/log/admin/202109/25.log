@@ -1,0 +1,176 @@
+---------------------------------------------------------------
+[2021-09-25 18:56:04] 127.0.0.1 GET /admin.php/verify/verify.html
+[ info ] localhost/admin.php/verify/verify.html [运行时间：0.241965s][吞吐率：4.13req/s] [内存消耗：3,080.39kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 12052356, 'public/public/f...', '2uzA')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:43] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.771411400806367
+[ info ] localhost/admin.php/verify/verify.html?d=0.771411400806367 [运行时间：0.135897s][吞吐率：7.36req/s] [内存消耗：3,080.78kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 8304853, 'public/public/f...', 'mudc')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:44] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.4554265913367601
+[ info ] localhost/admin.php/verify/verify.html?d=0.4554265913367601 [运行时间：0.133321s][吞吐率：7.50req/s] [内存消耗：3,080.78kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 10002584, 'public/public/f...', 'fx2i')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:54] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.5263558278048264
+[ info ] localhost/admin.php/verify/verify.html?d=0.5263558278048264 [运行时间：0.133261s][吞吐率：7.50req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 11430604, 'public/public/f...', 'KQ2M')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:55] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.028059888379152742
+[ info ] localhost/admin.php/verify/verify.html?d=0.028059888379152742 [运行时间：0.139080s][吞吐率：7.19req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 11504777, 'public/public/f...', '97DX')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:55] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.9499491390222188
+[ info ] localhost/admin.php/verify/verify.html?d=0.9499491390222188 [运行时间：0.131193s][吞吐率：7.62req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 15954678, 'public/public/f...', 'Ybka')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:56] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.7244251844368526
+[ info ] localhost/admin.php/verify/verify.html?d=0.7244251844368526 [运行时间：0.131866s][吞吐率：7.58req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 9958369, 'public/public/f...', 'qW8K')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:56:56] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.6046028903876988
+[ info ] localhost/admin.php/verify/verify.html?d=0.6046028903876988 [运行时间：0.129119s][吞吐率：7.74req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 13948594, 'public/public/f...', '8PtC')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:58:12] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.6046028903876988
+[ info ] localhost/admin.php/verify/verify.html?d=0.6046028903876988 [运行时间：0.142801s][吞吐率：7.00req/s] [内存消耗：3,081.16kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 9407673, 'public/public/f...', 'cJck')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:58:24] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.5375886126849476
+[ info ] localhost/admin.php/verify/verify.html?d=0.5375886126849476 [运行时间：0.151949s][吞吐率：6.58req/s] [内存消耗：3,081.00kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 7466130, 'public/public/f...', 'pcvH')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}
+---------------------------------------------------------------
+[2021-09-25 18:58:30] 127.0.0.1 GET /admin.php/verify/verify.html?d=0.5375886126849476
+[ info ] localhost/admin.php/verify/verify.html?d=0.5375886126849476 [运行时间：0.153777s][吞吐率：6.50req/s] [内存消耗：3,081.16kb] [文件加载：67]
+[ error ] [2]imagefttext(): Could not find/open font[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php:98]
+[ error ] imagefttext(): Could not find/open font
+[ error ] #0 [internal function]: think\Error::appError(2, 'imagefttext(): ...', 'E:\\phpCode\\zhon...', 98, Array)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(98): imagefttext(Resource id #65, 28, 0, 10, 30, 14584291, 'public/public/f...', '5HgK')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\extend\Util\Captcha.php(39): Util\Captcha->setCaptcha()
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\admin\controller\Verify.php(23): Util\Captcha->showImg()
+#4 [internal function]: app\admin\controller\Verify->verify()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(343): ReflectionMethod->invokeArgs(Object(app\admin\controller\Verify), Array)
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(610): think\App::invokeMethod(Array, Array)
+#7 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\admin.php(18): think\App::run()
+#10 {main}

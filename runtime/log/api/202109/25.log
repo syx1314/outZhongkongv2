@@ -1,0 +1,20 @@
+---------------------------------------------------------------
+[2021-09-25 18:56:00] 127.0.0.1 POST /api.php/open/get_doc
+[ info ] localhost/api.php/open/get_doc [运行时间：1.736328s][吞吐率：0.58req/s] [内存消耗：2,734.70kb] [文件加载：65]
+[ error ] [10501]SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ruice.dyr_weixin' doesn't exist[E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\db\Connection.php:390]
+[ error ] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ruice.dyr_weixin' doesn't exist
+[ error ] #0 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\db\connector\Mysql.php(65): think\db\Connection->query('SHOW COLUMNS FR...', Array, false, true)
+#1 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\db\Query.php(1883): think\db\connector\Mysql->getFields('`dyr_weixin`')
+#2 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\db\Query.php(1917): think\db\Query->getTableInfo('dyr_weixin', 'pk')
+#3 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\db\Query.php(2592): think\db\Query->getPk(Array)
+#4 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\api\controller\Base.php(40): think\db\Query->find()
+#5 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\application\common\controller\Base.php(35): app\api\controller\Base->_commonbase()
+#6 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\Controller.php(59): app\common\controller\Base->_initialize()
+#7 [internal function]: think\Controller->__construct(Object(think\Request))
+#8 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(359): ReflectionClass->newInstanceArgs(Array)
+#9 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\Loader.php(479): think\App::invokeClass('app\\api\\control...')
+#10 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(579): think\Loader::controller('open', 'controller', false, 'Error')
+#11 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(456): think\App::module(Array, Array, true)
+#12 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\thinkphp\library\think\App.php(139): think\App::exec(Array, Array)
+#13 E:\phpCode\zhongkong\outZhongkongv2\outZhongkongv2\public\api.php(18): think\App::run()
+#14 {main}

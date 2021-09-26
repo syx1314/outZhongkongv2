@@ -57,13 +57,30 @@ class Open extends \app\common\controller\Base
             ];
         }
         if ($voucher['is_price']) {
+            $price = 0;
+            if ($porder['total_price'] <= 10) {
+                $price =10;
+            }else if ($porder['total_price'] <= 30) {
+                $price =30;
+            }else if ($porder['total_price'] <= 50) {
+                $price =50;
+            } else if ($porder['total_price'] <= 100) {
+                $price =100;
+            }else if ($porder['total_price'] <= 200) {
+                $price =200;
+            }else if ($porder['total_price'] <= 500) {
+                $price =500;
+            }else {
+                $price =$porder['total_price'];
+            }
+
             $txtdata[] = [
                 'type' => 'txt',
                 'left' => $voucher['price_left'],
                 'top' => $voucher['price_top'],
                 'size' => $voucher['price_size'],
                 'color' => $voucher['price_color'],
-                'text' => $porder['total_price']
+                'text' => $price
             ];
         }
         if ($voucher['is_product']) {

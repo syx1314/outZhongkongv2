@@ -39,14 +39,14 @@ class RuiCe
     {
 
 
-        if (!$ruice_product_id) {
-            return rjson(1, "睿策产品id不存在请配置", '');
-        }
+//        if (!$ruice_product_id) {
+//            return rjson(1, "睿策产品id不存在请配置", '');
+//        }
         $data = [
             "userid" => $this->userid,
             "mobile" => $mobile,
             "out_trade_num" => $out_trade_num,
-            "product_id" => $ruice_product_id,
+            "product_id" => $param['param1'],
             "notify_url" => $this->notify,
         ];
         $data['sign'] = $this->sign($data);

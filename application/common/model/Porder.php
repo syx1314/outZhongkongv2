@@ -91,6 +91,12 @@ class Porder extends Model
         if (!$product) {
             return rjson(1, '未找到相关产品');
         }
+          $money =  $product['price'];
+         // 判断用户余额 是否足够支付产品余额
+         $uid = M('customer')->where(['id' => $customer_id, 'balance' => ['egt', $money]]);
+         if (!$uid) {
+             return rjson(-1, '账户余额不足！请加款');
+         }
         $model = new self();
         $model->save([
             'product_id' => $product['id'],

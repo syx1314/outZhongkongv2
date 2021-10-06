@@ -116,6 +116,7 @@
     }
 
     .content-box .li {
+        position: relative;
         width: 130px;
         height: 80px;
         margin: 30px 0 0 30px;
@@ -124,6 +125,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        overflow: hidden;
     }
 
     .content-box .li > div {
@@ -150,7 +152,30 @@
         line-height: 20px;
         color: #f00 !important;
     }
+    .selected_box {
+        width: 50px;
+        height: 60px;
+        overflow: hidden;
+        position: absolute;
+        top: -10px;
+        right: 0;
 
+    }
+
+    .selected_taocan {
+        background-color: red;
+        color: white;
+        width: 55px;
+        height: 34px;
+        line-height: 46px;
+        text-align: center;
+        transform: rotate(45deg);
+        margin-top: -24px;
+        margin-right: -34px;
+        font-size: 10px !important;
+    }
+
+    }
     .clearfloat:after {
         display: block;
         clear: both;
@@ -220,6 +245,9 @@
                                 <div>{{item.name}}</div>
                                 <div>{{item.desc}}</div>
                                 <div>￥{{item.price}}</div>
+                                <div class="selected_box"  v-show="taocan.id ===item.id ">
+                                    <div class="selected_taocan">已选</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -272,6 +300,7 @@
             },
             queOrder: function (item) {
                 this.taocan = item;
+                console.error(item);
             },
             subOrder: function () {
                 var mbarr = this.getMbArr();

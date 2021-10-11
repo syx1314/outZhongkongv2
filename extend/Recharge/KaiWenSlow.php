@@ -4,21 +4,19 @@
 namespace Recharge;
 
 /**
-/**
- * 作者：dd
- * wx：trsoft66
- * 电信慢充
+ * 作者：呆呆
+ * wx;trsoft66
  **/
-class DianXinSlow
+class KaiWenSlow
 {
-    private $user_id;//商户编号
+    private $szAgentId;//商户编号
     private $szKey;
     private $notify;
     private $apiurl;//话费充值接口
 
     public function __construct($option)
     {
-        $this->user_id = isset($option['param1']) ? $option['param1'] : '';
+        $this->szAgentId = isset($option['param1']) ? $option['param1'] : '';
         $this->szKey = isset($option['param2']) ? $option['param2'] : '';
         $this->notify = isset($option['param3']) ? $option['param3'] : '';
         $this->apiurl = isset($option['param4']) ? $option['param4'] : '';
@@ -29,19 +27,37 @@ class DianXinSlow
      */
     public function recharge($out_trade_num, $mobile, $param, $isp = '')
     {
+        $teltype = $this->get_teltype($isp);
+        $szTimeStamp = date("Y-m-d H:i:s", time());
         $data = [
-            "rechargerId" => $this->user_id,
-            "rechargeOrder" => $out_trade_num,
-            "account" => $mobile,
-            "amount" => $param['param1'],
-            'expireTime' => $param['param2'] ,//毫秒
-            'timeStamp' => time()*1000 //毫秒
+            "szAgentId" => $this->szAgentId,
+            "szOrderId" => $out_trade_num,
+            "szPhoneNum" => $mobile,
+            "nMoney" => $param['param1'],
+            "nSortType" => $teltype,
+            "nProductClass" => 1,
+            "nProductType" => '1',
+            'szTimeStamp' => $szTimeStamp
         ];
-        $data['notifyUrl'] = $this->notify;
-        $signstr = urldecode($data['account'].$data['amount'] .$data['rechargerId'] .$data['timeStamp']  . $this->szKey);
+        $signstr = urldecode(http_build_query($data) . "&szKey=" . $this->szKey);
         $sign = md5($signstr);
-        $data['sign'] = $sign;
+        $data['szVerifyString'] = $sign;
+        $data['szNotifyUrl'] = $this->notify;
         return $this->http_post($this->apiurl, $data);
+    }
+
+    private function get_teltype($str)
+    {
+        switch ($str) {
+            case '移动':
+                return 1;
+            case '联通':
+                return 2;
+            case '电信':
+                return 3;
+            default:
+                return -1;
+        }
     }
 
     /**
@@ -75,10 +91,10 @@ class DianXinSlow
         curl_close($oCurl);
         if (intval($aStatus["http_code"]) == 200) {
             $result = json_decode($sContent, true);
-            if ($result['code'] == 0) {
-                return rjson(0, '提交订单:'.$result['code'], $result);
+            if ($result['nRtn'] == 0) {
+                return rjson(0, $result['szRtnCode'], $result);
             } else {
-                return rjson(1, $result['code'].$result['msg'], $result);
+                return rjson(1, $result['szRtnCode'], $result);
             }
         } else {
             return rjson(1, '接口访问失败，http错误码' . $aStatus["http_code"]);

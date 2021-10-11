@@ -90,6 +90,7 @@ class JinXiangSlow
         $sContent = curl_exec($oCurl);
         $aStatus = curl_getinfo($oCurl);
         Log::error("网厅返回：".$sContent);
+        Log::error("网厅返回：".$strPOST);
         curl_close($oCurl);
         if (intval($aStatus["http_code"]) == 200) {
             $result = json_decode($sContent, true);

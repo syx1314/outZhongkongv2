@@ -3,22 +3,22 @@
 
 namespace Recharge;
 
+use think\Log;
+
 /**
-/**
- * 作者：dd
- * wx：trsoft66
- * 电信慢充
+ * 作者：呆呆
+ * wx:trssoft66
  **/
-class DianXinSlow
+class YiDongProvince
 {
-    private $user_id;//商户编号
+    private $szAgentId;//商户编号
     private $szKey;
     private $notify;
     private $apiurl;//话费充值接口
 
     public function __construct($option)
     {
-        $this->user_id = isset($option['param1']) ? $option['param1'] : '';
+        $this->szAgentId = isset($option['param1']) ? $option['param1'] : '';
         $this->szKey = isset($option['param2']) ? $option['param2'] : '';
         $this->notify = isset($option['param3']) ? $option['param3'] : '';
         $this->apiurl = isset($option['param4']) ? $option['param4'] : '';
@@ -29,19 +29,41 @@ class DianXinSlow
      */
     public function recharge($out_trade_num, $mobile, $param, $isp = '')
     {
+        $teltype = $this->get_teltype($isp);
+        $szTimeStamp = date("Y-m-d H:i:s", time());
         $data = [
-            "rechargerId" => $this->user_id,
-            "rechargeOrder" => $out_trade_num,
-            "account" => $mobile,
+            "id" => $this->szAgentId,
+            "out_trade_no" => $out_trade_num,
+            "phonenumber" => $mobile,
             "amount" => $param['param1'],
-            'expireTime' => $param['param2'] ,//毫秒
-            'timeStamp' => time()*1000 //毫秒
+            "operator" => $teltype,
+            "rechargetype" => '1', //充值类型  0 快充  1 慢充
+            "timestamp" => time(),
         ];
-        $data['notifyUrl'] = $this->notify;
-        $signstr = urldecode($data['account'].$data['amount'] .$data['rechargerId'] .$data['timeStamp']  . $this->szKey);
-        $sign = md5($signstr);
+        $data['notifyurl'] = $this->notify;
+        $data['nonce_str'] = time();
+        ksort($data);
+//        $signstr = 'amount='.$data['amount'].'&id='.$data['id'].'&notifyurl='.$data['notifyurl'].'&operator='.$data['operator'].'&out_trade_no='.$data['out_trade_no'].'&phonenumber='.$data['phonenumber'].'&rechargetype='.$data['rechargetype'].'&timestamp='.$data['timestamp']."&key=".$this->szKey;
+        $signstr = urldecode(http_build_query($data))."&key=".$this->szKey;
+        Log::error("签名串：".$signstr);
+        $sign = strtoupper(md5($signstr));
         $data['sign'] = $sign;
+
         return $this->http_post($this->apiurl, $data);
+    }
+
+    private function get_teltype($str)
+    {
+        switch ($str) {
+            case '移动':
+                return 'CMCC';
+            case '联通':
+                return 'CUCC';
+            case '电信':
+                return 'CTCC';
+            default:
+                return -1;
+        }
     }
 
     /**
@@ -76,7 +98,7 @@ class DianXinSlow
         if (intval($aStatus["http_code"]) == 200) {
             $result = json_decode($sContent, true);
             if ($result['code'] == 0) {
-                return rjson(0, '提交订单:'.$result['code'], $result);
+                return rjson(0, $result['code'].$result['msg'], $result);
             } else {
                 return rjson(1, $result['code'].$result['msg'], $result);
             }

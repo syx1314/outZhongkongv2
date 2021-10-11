@@ -3,22 +3,23 @@
 
 namespace Recharge;
 
+use think\Log;
+
 /**
-/**
- * 作者：dd
- * wx：trsoft66
- * 电信慢充
+ * 作者：呆呆
+ * wx:trssoft66
+ * http://120.78.182.218:9819/agent
  **/
-class DianXinSlow
+class YiDongProvinceV2
 {
-    private $user_id;//商户编号
+    private $szAgentId;//商户编号
     private $szKey;
     private $notify;
     private $apiurl;//话费充值接口
 
     public function __construct($option)
     {
-        $this->user_id = isset($option['param1']) ? $option['param1'] : '';
+        $this->szAgentId = isset($option['param1']) ? $option['param1'] : '';
         $this->szKey = isset($option['param2']) ? $option['param2'] : '';
         $this->notify = isset($option['param3']) ? $option['param3'] : '';
         $this->apiurl = isset($option['param4']) ? $option['param4'] : '';
@@ -29,19 +30,38 @@ class DianXinSlow
      */
     public function recharge($out_trade_num, $mobile, $param, $isp = '')
     {
+        $teltype = $this->get_teltype($isp);
         $data = [
-            "rechargerId" => $this->user_id,
-            "rechargeOrder" => $out_trade_num,
-            "account" => $mobile,
-            "amount" => $param['param1'],
-            'expireTime' => $param['param2'] ,//毫秒
-            'timeStamp' => time()*1000 //毫秒
+            "mchid" => $this->szAgentId,
+            "mch_order_id" => $out_trade_num,
+            "tel" => $mobile,
+            "price" => $param['param1'],
+            "tel_type" => $teltype,
+            "timeout" => 1,//1:慢充2:快充
+            "time" => time(),
+            "rand" => 999999,
         ];
-        $data['notifyUrl'] = $this->notify;
-        $signstr = urldecode($data['account'].$data['amount'] .$data['rechargerId'] .$data['timeStamp']  . $this->szKey);
+        $data['notify'] = $this->notify;
+        $signstr = $data['mchid'].$data['tel'].$data['mch_order_id'].$data['price'].$data['tel_type'].$data['timeout'].
+            $data['notify'].$data['time'].$data['rand'].$this->szKey;
         $sign = md5($signstr);
         $data['sign'] = $sign;
+
         return $this->http_post($this->apiurl, $data);
+    }
+
+    private function get_teltype($str)
+    {
+        switch ($str) {
+            case '移动':
+                return '3';
+            case '联通':
+                return '2';
+            case '电信':
+                return '1';
+            default:
+                return -1;
+        }
     }
 
     /**
@@ -76,7 +96,7 @@ class DianXinSlow
         if (intval($aStatus["http_code"]) == 200) {
             $result = json_decode($sContent, true);
             if ($result['code'] == 0) {
-                return rjson(0, '提交订单:'.$result['code'], $result);
+                return rjson(0, $result['code'].$result['msg'], $result);
             } else {
                 return rjson(1, $result['code'].$result['msg'], $result);
             }

@@ -63,11 +63,44 @@ class Apinotify extends Base
             echo "fail";
         }
     }
-
-
+   //电信慢充
+    public function dianxinslow()
+    {
+        $res =  json_decode($_POST);
+        $this->writelog($res."电信慢充回掉");
+        $state = $res['status'];
+        if ($state == 'PAID') {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('dianxinslow', $res['rechargeOrder'], $_POST);
+            $flag && PorderModel::rechargeSusApi($res['rechargeOrder'], "充值成功|接口回调|" . $_POST);
+            echo "success";
+        } else{
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('dianxinslow', $res['rechargeOrder'], $_POST);
+            $flag && PorderModel::rechargeFailApi($res['rechargeOrder'], "充值失败|接口回调|" . $_POST);
+            echo "success";
+        }
+    }
+    //移动分省慢充
+    public function yidongprovince()
+    {
+        $state = I('order_status');
+        if ($state == 'success') {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yidongprovince', I('out_trade_no'), $_POST);
+            $flag && PorderModel::rechargeSusApi(I('out_trade_no'), "充值成功|接口回调|" . json_encode($_POST));
+            echo "success";
+        } else {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yidongprovince', I('out_trade_no'), $_POST);
+            $flag && PorderModel::rechargeFailApi(I('out_trade_no'), "充值失败|接口回调|" . json_encode($_POST));
+            echo "success";
+        }
+    }
     //jupay
     public function jindong()
     {
+
         $state = intval(I('status'));
         if ($state == 1) {
             //充值成功,根据自身业务逻辑进行后续处理
@@ -224,40 +257,8 @@ class Apinotify extends Base
             echo "success";
         }
     }
-    //电信慢充
-    public function dianxinslow()
-    {
-        $res =  json_decode($_POST);
-        $this->writelog($res."电信慢充回掉");
-        $state = $res['status'];
-        if ($state == 'PAID') {
-            //充值成功,根据自身业务逻辑进行后续处理
-            $flag = $this->apinotify_log('dianxinslow', $res['rechargeOrder'], $_POST);
-            $flag && PorderModel::rechargeSusApi($res['rechargeOrder'], "充值成功|接口回调|" . $_POST);
-            echo "success";
-        } else{
-            //充值失败,根据自身业务逻辑进行后续处理
-            $flag = $this->apinotify_log('dianxinslow', $res['rechargeOrder'], $_POST);
-            $flag && PorderModel::rechargeFailApi($res['rechargeOrder'], "充值失败|接口回调|" . $_POST);
-            echo "success";
-        }
-    }
-    //移动分省慢充
-    public function yidongprovince()
-    {
-        $state = I('order_status');
-        if ($state == 'success') {
-            //充值成功,根据自身业务逻辑进行后续处理
-            $flag = $this->apinotify_log('yidongprovince', I('out_trade_no'), $_POST);
-            $flag && PorderModel::rechargeSusApi(I('out_trade_no'), "充值成功|接口回调|" . json_encode($_POST));
-            echo "success";
-        } else {
-            //充值失败,根据自身业务逻辑进行后续处理
-            $flag = $this->apinotify_log('yidongprovince', I('out_trade_no'), $_POST);
-            $flag && PorderModel::rechargeFailApi(I('out_trade_no'), "充值失败|接口回调|" . json_encode($_POST));
-            echo "success";
-        }
-    }
+
+
 
     // 暴龙慢充
     public function baolongslow() {
@@ -274,7 +275,54 @@ class Apinotify extends Base
             echo "success";
         }
     }
-
+    //凯文慢充
+    public function kaiwenslow()
+    {
+        $state = intval(I('nFlag'));
+        if ($state == 2) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('kaiwenslow', I('szOrderId'), $_POST);
+            $flag && PorderModel::rechargeSusApi(I('szOrderId'), "充值成功|接口回调|" . json_encode($_POST));
+            echo "ok";
+        } else if ($state == 3) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('kaiwenslow', I('szOrderId'), $_POST);
+            $flag && PorderModel::rechargeFailApi(I('szOrderId'), "充值失败|接口回调|" . json_encode($_POST));
+            echo "ok";
+        }
+    }
+    //移动分省慢充v2
+    public function yidongprovincev2()
+    {
+        $state = intval(I('status'));
+        if ($state == 3) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yidongprovincev2', I('order_id'), $_POST);
+            $flag && PorderModel::rechargeSusApi(I('order_id'), "充值成功|接口回调|" . json_encode($_POST));
+            echo "success";
+        } else if ($state == 5) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yidongprovincev2', I('order_id'), $_POST);
+            $flag && PorderModel::rechargeFailApi(I('order_id'), "充值失败|接口回调|" . json_encode($_POST));
+            echo "success";
+        }
+    }
+    //流量通炫捷慢充
+    public function liuLiangtongxuejieslow()
+    {
+        $state = intval(I('nFlag'));
+        if ($state == 2) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('liuLiangtongxuejieslow', I('szOrderId'), $_POST);
+            $flag && PorderModel::rechargeSusApi(I('szOrderId'), "充值成功|接口回调|" . json_encode($_POST));
+            echo "ok";
+        } else if ($state == 3) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('liuLiangtongxuejieslow', I('szOrderId'), $_POST);
+            $flag && PorderModel::rechargeFailApi(I('szOrderId'), "充值失败|接口回调|" . json_encode($_POST));
+            echo "ok";
+        }
+    }
     private function writelog($text)
     {
         $myfile = fopen("apinotifylog.txt", "a") or die("Unable to open file!");

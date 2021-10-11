@@ -2,6 +2,8 @@
 
 namespace Recharge;
 
+use think\Log;
+
 /**
  * @author 暴龙慢充
  * wx:trsoft66
@@ -39,11 +41,14 @@ class BaoLongSlow
             "time" => $szTimeStamp,
         ];
         $data['notify_url'] = $this->notify;
-        $signstr = urldecode(http_build_query($data).'&secret='.$this->szKey);
-
+        $data['secret'] = $this->szKey;
+        ksort($data);
+        $signstr = urldecode(http_build_query($data));
+//        $signstr= strtolower($signstr);
+        Log::error($signstr);
         $sign = sha1($signstr);
-        $data['sign'] = strtolower($sign);
-
+        $data['sign'] =$sign;
+        Log::error($data['sign']);
         return $this->http_post($this->apiurl, $data);
     }
 
@@ -91,7 +96,7 @@ class BaoLongSlow
         $sContent = curl_exec($oCurl);
         $aStatus = curl_getinfo($oCurl);
         curl_close($oCurl);
-        if (intval($aStatus["http_code"]) == 200) {
+        if (intval($aStatus["http_code"]) == 200 || intval($aStatus["http_code"]) == 201) {
             $result = json_decode($sContent, true);
             if ($result['code'] == 200) {
                 return rjson(0, $result['code'].$result['msg'], $result);

@@ -4,12 +4,14 @@
 namespace Recharge;
 
 
+use think\Log;
+
 /**
- * 猿人接口
+ * 星星联通
  * 呆呆
  *  wx:trsoft66
  **/
-class Yuanren
+class XingXingLiantong
 {
     private $userid;
     private $apikey;
@@ -26,9 +28,16 @@ class Yuanren
 
     /**
      * 提交充值号码充值
+     * @param $out_trade_num
+     * @param $mobile
+     * @param $param
+     * @param string $isp
+     * @param $product_id
+     * @return \think\response\Json
      */
-    public function recharge($out_trade_num, $mobile, $param, $isp = '')
+    public function recharge($out_trade_num, $mobile, $param, $isp = '',$ruice_product_id)
     {
+
         $data = [
             "userid" => $this->userid,
             "mobile" => $mobile,
@@ -76,49 +85,6 @@ class Yuanren
         ];
         $data['sign'] = $this->sign($data);
         return $this->http_get($this->apiurl . 'index/product', $data);
-    }
-    public function ele_city()
-    {
-        unset($I34tI8L);
-        $I34tI8L = ["userid" => $this->userid];
-        $data = $I34tI8L;
-        unset($I34tI8L);
-        $data['sign'] = $this->sign($data);
-        $I34vP8L = $this->apiurl . 'index/ele_city';
-        return $this->http_get($I34vP8L, $data);
-    }
-
-    public function ele_dw($city_id = '')
-    {
-        unset($I34tI8L);
-        $I34tI8L = ["userid" => $this->userid, "city_id" => $city_id];
-        $data = $I34tI8L;
-        unset($I34tI8L);
-        $data['sign'] = $this->sign($data);
-        $I34vP8L = $this->apiurl . 'index/ele_dw';
-        return $this->http_get($I34vP8L, $data);
-    }
-
-    public function ele_balance($dw_id, $account)
-    {
-        unset($I34tI8L);
-        $I34tI8L = ["userid" => $this->userid, "dw_id" => $dw_id, "account" => $account];
-        $data = $I34tI8L;
-        unset($I34tI8L);
-        $data['sign'] = $this->sign($data);
-        $I34vP8L = $this->apiurl . 'index/ele_balance';
-        return $this->http_get($I34vP8L, $data);
-    }
-
-    public function ele_recharge($out_trade_num, $account, $money, $dw_id)
-    {
-        unset($I34tI8L);
-        $I34tI8L = ["userid" => $this->userid, "money" => $money, "out_trade_num" => $out_trade_num, "dw_id" => $dw_id, "account" => $account, "notify_url" => $this->notify];
-        $data = $I34tI8L;
-        unset($I34tI8L);
-        $data['sign'] = $this->sign($data);
-        $I34vP8L = $this->apiurl . 'index/ele_recharge';
-        return $this->http_get($I34vP8L, $data);
     }
 
     //签名

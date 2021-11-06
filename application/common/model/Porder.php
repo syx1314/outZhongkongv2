@@ -95,7 +95,7 @@ class Porder extends Model
          // 判断用户余额 是否足够支付产品余额
          $uid = M('customer')->where(['id' => $customer_id, 'balance' => ['egt', $money]]);
          if (!$uid) {
-             return rjson(-1, '账户余额不足！请加款');
+             return rjson(-1, '账户余额不足！请加款😭');
          }
         $model = new self();
         $model->save([

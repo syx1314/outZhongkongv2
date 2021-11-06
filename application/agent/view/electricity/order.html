@@ -1,0 +1,271 @@
+{include file="public/header" /}
+<style>
+    .m-box {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        font-size: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .m-box .mobile {
+        height: 80px;
+        width: 400px;
+        font-size: 40px;
+    }
+
+    .m-box .gs {
+        color: #888;
+        font-size: 24px;
+        margin-left: 20px;
+        width: 400px;
+    }
+
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        font-size: 40px;
+        line-height: 80px;
+    }
+
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        font-size: 40px;
+        line-height: 80px;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        font-size: 40px;
+        line-height: 80px;
+    }
+
+    .content-box {
+        padding: 0 10px 20px 10px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-box .tit {
+        font-size: 30px;
+        color: #000;
+        text-align: center;
+        font-weight: 700;
+        margin-top: 30px;
+    }
+
+    .content-box .cate {
+        border: 1px solid #ccc;
+        padding: 0 10px 20px 10px;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .content-box .cate .c {
+        margin-top: 10px;
+    }
+
+    .content-box .list {
+        background-color: #fff;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+    }
+
+    .active {
+    }
+
+    .active .li {
+        border: 1px solid #3F92ED !important;
+    }
+
+    .active .li > div {
+        color: #3F92ED !important;
+    }
+
+    .content-box .li {
+        /*width: 150px;*/
+        margin: 30px 0px 0px 30px;
+        padding: 10px;
+        border: 1px solid #CCCCCC;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .content-box .li > div {
+        text-align: center;
+        color: #ccc;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content-box .li > div:nth-child(1) {
+        font-size: 16px;
+        line-height: 25px;
+    }
+
+    .content-box .li > div:nth-child(2) {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .content-box .li > div:nth-child(3) {
+        font-size: 18px;
+        line-height: 20px;
+        color: #f00 !important;
+    }
+
+    .clearfloat:after {
+        display: block;
+        clear: both;
+        content: "";
+        visibility: hidden;
+        height: 0
+    }
+
+    .clearfloat {
+        zoom: 1
+    }
+
+    .zdy_in {
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .zdy_in::placeholder {
+        font-size: 14px;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeIn" id="page">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>下单</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="m-box" style="font-size: 18px;margin-bottom: 10px;">
+                        折扣：{:C('ELE_DISCOUNT_AG')}折,服务费：{:C('ELE_SERVICE_PRICE')}元
+                    </div>
+                    <div class="m-box">
+                        <input class="mobile form-control" type="text" maxlength="10" placeholder="请输入电费户号"
+                               v-model="account"/>
+                        <input class="mobile form-control" type="text" maxlength="5" placeholder="请输入缴费金额"
+                               v-model="money"/>
+                    </div>
+                    <div class="content-box clearfloat active" v-for="(cate,ci) in citys">
+                        <div class="tit">{{cate.letter}}</div>
+                        <div class="cate" v-for="(item,index) in cate.list">
+                            <div class="c" @click="getCompanys(ci,index)">{{item.city_name}}(点我加载缴费单位)</div>
+                            <div class="list">
+                                <div class="li" v-for="(dw,dwi) in item.dw" v-if="item.dw" @click="queOrder(dw.id,dw.name)">
+                                    <div>{{dw.name}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    var vue = new Vue({
+        el: '#page',
+        data: {
+            account: '',
+            money: '',
+            citys: [],
+            zdy_amt: ''
+        },
+        created: function () {
+            this.initCity();
+        },
+        watch: {},
+        methods: {
+            initCity: function () {
+                $.post("{:U('get_city')}", {}, function (result) {
+                    if (result.errno == 0) {
+                        vue.citys = result.data;
+                    } else {
+                        vue.citys = [];
+                        layer.alert(result.errmsg, {
+                            icon: 5,
+                            skin: 'layer-ext-moon'
+                        })
+                    }
+                });
+            },
+            getCompanys: function (ci, index) {
+                $.post("{:U('get_company')}", {city_id: vue.citys[ci].list[index].id}, function (result) {
+                    if (result.errno == 0) {
+                        vue.citys[ci].list[index].dw = result.data;
+                        vue.$forceUpdate();
+                    } else {
+                        vue.citys = [];
+                        layer.alert(result.errmsg, {
+                            icon: 5,
+                            skin: 'layer-ext-moon'
+                        })
+                    }
+                });
+            },
+            queOrder: function (id, dwname) {
+                var account = this.account.replace(/\D/g, '');
+                var money = parseInt(this.money.replace(/\D/g, ''));
+                if (account.length != 10) {
+                    layer.alert("请输入10位户号", {
+                        icon: 5,
+                        skin: 'layer-ext-moon'
+                    })
+                    return;
+                }
+                if (parseInt(money) <= 0) {
+                    layer.alert("请输入正确的充值金额", {
+                        icon: 5,
+                        skin: 'layer-ext-moon'
+                    })
+                    return;
+                }
+                layer.confirm('为户号[' + account + "]，单位：" + dwname + "，充值电费" + money + "元?", {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    vue.subOrder(id, account, money);
+                }, function () {
+
+                });
+            },
+            subOrder: function (id, account, money) {
+                var index = layer.load(1, {
+                    shade: [0.1, '#fff'] //0.1透明度的白色背景
+                });
+                $.post("{:U('ele_recharge')}", {
+                    dw_id: id,
+                    account: account,
+                    money: money
+                }, function (result) {
+                    layer.closeAll();
+                    if (result.errno == 0) {
+                        layer.alert(result.errmsg, {
+                            icon: 1,
+                            skin: 'layer-ext-moon'
+                        });
+                        vue.mobile = '';
+                    } else {
+                        layer.alert(result.errmsg, {
+                            icon: 5,
+                            skin: 'layer-ext-moon'
+                        })
+                    }
+                });
+            }
+        }
+    })
+</script>
+</html>

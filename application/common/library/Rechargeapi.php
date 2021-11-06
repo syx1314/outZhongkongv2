@@ -55,8 +55,10 @@ class Rechargeapi
             $product = M('product')->where(['id' => $porder['api_order_number']])->find();
             Log::error($product);
             return $model->recharge($porder['api_order_number'], $porder['mobile'], $param, $porder['isp'],$product['ruice_product_id']);
+        }else if ($config['callapi'] == 'WanNengChong') {
+            return $model->recharge($porder['api_order_number'], $porder['mobile'], $param, $porder['isp'],$porder['guishu']);
         }
-        return $model->recharge($porder['api_order_number'], $porder['mobile'], $param, $porder['isp']);
+        return $model->recharge($porder['api_order_number'], $porder['mobile'], $param, $porder['isp'],$porder['guishu']);
     }
 
 

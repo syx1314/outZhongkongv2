@@ -37,6 +37,14 @@ class Createlog
             'create_time' => time()
         ]);
     }
-
+//电费日志
+    public static function eleOrderLog($orderid, $log)
+    {
+        M('order_electricity_log')->insertGetId([
+            'order_id' => $orderid,
+            'log' => $log,
+            'create_time' => time()
+        ]);
+    }
 
 }

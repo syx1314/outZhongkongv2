@@ -1,6 +1,5 @@
-#!/usr/bin/env php
 <?php declare(strict_types=1);
-
+//ls#!/usr/bin/env php
 // load autoload.php
 $possibleFiles = [__DIR__.'/../vendor/autoload.php', __DIR__.'/../../../autoload.php', __DIR__.'/../../autoload.php'];
 $file = null;

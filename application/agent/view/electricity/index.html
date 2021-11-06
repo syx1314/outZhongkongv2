@@ -1,0 +1,203 @@
+{include file="public/header" /}
+<style>
+    .table-bordered > tbody > tr:hover {
+        background-color: #f5f5f5
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeIn">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row input-groups">
+                        <div class="col-md-2 form-inline text-left">
+                            <div class="form-group">
+                                <a class="btn btn-sm btn-white open-reload"><i
+                                        class="glyphicon glyphicon-repeat"></i></a>
+                                <span>&nbsp;总金额：￥{$total_price}</span>
+                            </div>
+                        </div>
+                        <div class="col-md-10 m-b-xs form-inline text-right">
+                            <div class="form-group">
+                                <span class="control-label">开始：</span>
+                                <input type="text" name="begin_time" id="begin_time" value="{:I('begin_time')}"
+                                       class="input-sm input-s-sm serach_selects" style="border: 1px solid #e5e6e7;"
+                                       autocomplete="off">
+                                <span class="control-label">&nbsp;结束：</span>
+                                <input type="text" name="end_time" id="end_time" value="{:I('end_time')}"
+                                       style="border: 1px solid #e5e6e7;"
+                                       class="input-sm input-s-sm serach_selects" autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <?php $statusarr=C('ELE_STATUS');?>
+                                <label class="control-label">状态:</label>
+                                <select class="input-sm form-control input-s-sm inline serach_selects" name="status"
+                                        style="width: auto;">
+                                    <option value="0">请选择</option>
+                                    {volist name="statusarr" id="vo"}
+                                    <option value="{$key}"
+                                    <?php if(I('status')==$key){ echo "selected='selected'"; } ?>>{$vo}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="key" placeholder="请输入关键词查询" value="{:I('key')}"
+                                           class="input-sm form-control">
+                                    <span class="input-group-btn"><button type="button" id="search"
+                                                                          class="btn btn-sm btn-primary"
+                                                                          url="{:U('index')}"> 搜索</button></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>单号</th>
+                                <th>商户单号</th>
+                                <th>户名</th>
+                                <th>户号</th>
+                                <th>缴费金额</th>
+                                <th>缴费单位</th>
+                                <th>服务费</th>
+                                <th>总金额</th>
+                                <th>支付方式</th>
+                                <td>下单时间</td>
+                                <th>支付时间</th>
+                                <th>状态</th>
+                                <th>回调</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="_list" id="vo"}
+                            <tr>
+                                <td>{$vo.order_number}</td>
+                                <td>{$vo.out_trade_num}</td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.account}</td>
+                                <td>{$vo.money}</td>
+                                <td>{$vo.city}-{$vo.company_name}</td>
+                                <td>{$vo.service_price}</td>
+                                <td>{$vo.total_price}</td>
+                                <td>{$vo.pay_way_text}</td>
+                                <td>{$vo.create_time}</td>
+                                <td>{$vo.pay_time|time_format}</td>
+                                <td>
+                                    {switch name="vo.status"}
+                                    {case value="1"}
+                                    <span class="label label-default">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {case value="2"}
+                                    <span class="label label-success">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {case value="3"}
+                                    <span class="label label-warning">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {case value="4"}
+                                    <span class="label label-primary">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {case value="5"}
+                                    <span class="label label-danger">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {case value="6"}
+                                    <span class="label label-default">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/case}
+                                    {default /}
+                                    <span class="label label-default">
+                                    {$vo.status_text}
+                                    </span>
+                                    {/switch}
+                                </td>
+                                <td>{$vo.is_notification?'回调成功':'未回调'}</td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page">
+                        {$_list->render()}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__/laydate/laydate.js"></script>
+<script>
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#begin_time',
+        type: 'datetime',
+        done: function (value, date, endDate) {
+            $('#begin_time').val(value);
+        }
+    });
+    laydate.render({
+        elem: '#end_time',
+        type: 'datetime',
+        done: function (value, date, endDate) {
+            $('#end_time').val(value);
+        }
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green'
+        });
+    });
+    $("#search,#excel").click(function () {
+        var url = $(this).attr('url');
+        var query = $('.input-groups').find('input').serialize();
+        var select = $('.input-groups').find('select').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+        query = query.replace(/^&/g, '');
+        if (url.indexOf('?') > 0) {
+            url += '&' + query;
+        } else {
+            url += '?' + query;
+        }
+        if (url.indexOf('?') > 0) {
+            url += '&' + select;
+        } else {
+            url += '?' + select;
+        }
+        window.location.href = url;
+    });
+    //回车搜索
+    $(".input-sm").keyup(function (e) {
+        if (e.keyCode === 13) {
+            $("#search").click();
+            return false;
+        }
+    });
+    $(".serach_selects").change(function () {
+        $("#search").click();
+        return false;
+    });
+</script>
+</body>
+</html>

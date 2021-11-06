@@ -7,11 +7,11 @@ namespace Recharge;
 use think\Log;
 
 /**
- * 睿策接口
+ * 潮流量
  * 呆呆
  *  wx:trsoft66
  **/
-class Blink
+class ChaoLiuliang
 {
     private $userid;
     private $apikey;
@@ -39,64 +39,23 @@ class Blink
     {
 
         $data = [
-            "userid" => $this->userid,
+            "appid" => $this->userid,
             "mobile" => $mobile,
-            "out_trade_num" => $out_trade_num,
-            "product_id" => $param['param1'],
-            "notify_url" => $this->notify,
+            "out_trade_no" => $out_trade_num,
+            "goods_id" => $param['param1'],
+            "timestamp" => time(),
+            "nonce_str" => md5(time()), //随机字符串，不超过32位
         ];
         $data['sign'] = $this->sign($data);
-        return $this->http_get($this->apiurl . 'index/recharge', $data);
+        return $this->http_get($this->apiurl, $data);
     }
 
-
-    /**
-     * 查询用户信息
-     */
-    public function balance()
-    {
-        $data = [
-            "userid" => $this->userid
-        ];
-        $data['sign'] = $this->sign($data);
-        $res=$this->http_get($this->apiurl . 'index/user', $data);
-        if ($res['errno']==0) {
-            return rjson(0, $res['errmsg'], sprintf("%.2f", $res['data']['balance']));
-        }else{
-            return rjson(1, $res['errmsg'], $res['data']);
-        }
-    }
-
-    /**
-     *查询订单状态
-     */
-    public function check($out_trade_nums)
-    {
-        $data = [
-            "userid" => $this->userid,
-            "out_trade_nums" => $out_trade_nums
-        ];
-        $data['sign'] = $this->sign($data);
-        return $this->http_get($this->apiurl . 'index/check', $data);
-    }
-
-    /**
-     * 获取所有产品
-     */
-    public function product()
-    {
-        $data = [
-            "userid" => $this->userid
-        ];
-        $data['sign'] = $this->sign($data);
-        return $this->http_get($this->apiurl . 'index/product', $data);
-    }
 
     //签名
     public function sign($data)
     {
         ksort($data);
-        $sign_str = http_build_query($data) . '&apikey=' . $this->apikey;
+        $sign_str = http_build_query($data) . '&appsecret=' . $this->apikey;
         return strtoupper(md5(urldecode($sign_str)));
     }
 
@@ -119,16 +78,17 @@ class Blink
         curl_setopt($oCurl, CURLOPT_TIMEOUT, 30);
         curl_setopt($oCurl, CURLOPT_HEADER, 0);
         curl_setopt($oCurl, CURLOPT_HTTPHEADER, ["ContentType:application/x-www-form-urlencoded;charset=utf-8"]);
-        Log::error($strPOST);
         $sContent = curl_exec($oCurl);
         $aStatus = curl_getinfo($oCurl);
         curl_close($oCurl);
-        if (intval($aStatus["http_code"]) == 200) {
+        if (intval($aStatus["http_code"]) == 0) {
+            return rjson(0, 'http=0', 'http=0请去渠道查看实际状态');
+        }else if (intval($aStatus["http_code"]) == 200) {
             $result = json_decode($sContent, true);
-            if ($result['errno'] == 0) {
-                return rjson(0, $result['errmsg'], $result['data']);
+            if ($result['errcode'] == 0) {
+                return rjson(0, $result['errmsg'], $result);
             } else {
-                return rjson(1, $result['errmsg'], $result['data']);
+                return rjson(1, $result['errmsg'], $result);
             }
         } else {
             return rjson(1, '接口访问失败，http错误码' . $aStatus["http_code"]);

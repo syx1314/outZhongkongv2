@@ -24,9 +24,9 @@ class Login extends Base
 
     public function logindo()
     {
-//        if (strtolower(session('piccode')) != strtolower(I('verifycode'))) {
-//            return djson(1, "验证码错误！");
-//        }
+        if (strtolower(session('piccode')) != strtolower(I('verifycode'))) {
+            return djson(1, "验证码错误！");
+        }
         $res = CustomerModel::pwdLogin(I('username'), I('password'));
         if ($res['errno'] != 0) {
             return djson(1, $res['errmsg'], $res['data']);

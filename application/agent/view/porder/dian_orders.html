@@ -1,0 +1,241 @@
+{include file="public/header" /}
+<style>
+
+    .clearfloat:after {
+        display: block;
+        clear: both;
+        content: "";
+        visibility: hidden;
+        height: 0
+    }
+
+    .clearfloat {
+        zoom: 1
+    }
+    li {
+        list-style: none;
+    }
+    .fl {
+        float: left;
+    }
+    .row {
+        background-color: #ffffff;
+        overflow: hidden;
+    }
+    .content {
+        width: 100%;
+    }
+    .content_box {
+        width: 500px;
+        margin: auto;
+    }
+    .ibox-title {
+       padding-left: 15px;
+        margin-bottom: 35px;
+        border-bottom: 1px solid #C6C6C6;
+    }
+    .common_btn {
+        height: 40px;
+        line-height: 40px;
+        padding: 0px 15px;
+        font-size: 14px;
+        border-right: 1px solid #C6C6C6;
+        background-color: #ffffff;
+        color: #000000;
+        cursor: pointer;
+    }
+    .common_btn_check {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        padding: 0px 15px;
+        font-size: 14px;
+        background-color: #0aafe6;
+        color: #FFFFFF;
+    }
+    .common_btn_check:hover {
+        opacity: 0.7;
+        cursor: pointer;
+
+    }
+    .common_box {
+        border: 1px solid #C6C6C6;
+        border-right: 0;
+        border-radius: 5px;
+    }
+    .item-box {
+
+        height: 60px;
+        line-height: 60px;
+        overflow: hidden;
+    }
+    .account {
+        height: 35px;
+        line-height: 35px;
+        padding: 0px 15px;
+        font-size: 14px;
+        outline: none;
+        margin-top: 14px;
+        border-radius: 5px;
+        border: 1px solid #C6C6C6;
+    }
+    input:focus {
+        border: 1px solid #0aafe6;
+    }
+    .sub_title {
+        margin-right: 10px;
+    }
+</style>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeIn" id="page" v-cloak>
+    <div class="row">
+        <div class="ibox-title">
+            <h5>电费下单</h5>
+        </div>
+        <div class="content">
+            <div class="content_box">
+                <div class="item-box">
+                    <span class="sub_title">充值类型</span>
+                    <span class="common_btn_check common_box">国家电网</span>
+                </div>
+                <div class="item-box">
+                    <span class="sub_title fl">充值类型</span>
+                    <ul class="common_box fl" style="margin-bottom: 10px;">
+                        <li class="common_btn common_btn_check fl" v-model="price">100</li>
+                        <li class="common_btn fl" v-model="price">200</li>
+                        <li class="common_btn fl" v-model="price">300</li>
+                        <li class="common_btn fl" v-model="price">400</li>
+                        <li class="common_btn fl" v-model="price">500</li>
+                    </ul>
+                </div>
+                <div class="item-box">
+                    <span class="sub_title fl">缴费户号</span>
+                    <div class="m-box fl">
+                        <input class="account " type="text"  placeholder="请输入缴费户号"
+                               v-model="account"/>
+                    </div>
+                </div>
+                <div class="item-box">
+                    <span class="sub_title fl">省市地区</span>
+                    <div class="m-box fl ">
+                        <input type="text" autocomplete="off" placeholder="请选择" class="account" v-model="area">
+                        <ul class="el-scrollbar__view el-select-dropdown__list" style="display: none"><!---->
+                            <li  class="el-select-dropdown__item">
+                                <span>北京市</span>
+                            </li>
+                            <li  class="el-select-dropdown__item"><span>上海市</span></li>
+                            <li  class="el-select-dropdown__item"><span>重庆市</span></li>
+                            <li  class="el-select-dropdown__item"><span>辽宁省</span></li>
+                            <li  class="el-select-dropdown__item"><span>江苏省</span></li>
+                            <li  class="el-select-dropdown__item"><span>浙江省</span></li>
+                            <li  class="el-select-dropdown__item"><span>山东省</span></li>
+                            <li  class="el-select-dropdown__item"><span>湖南省</span></li>
+                            <li  class="el-select-dropdown__item"><span>陕西省</span></li>
+                            <li  class="el-select-dropdown__item"><span>新疆</span></li>
+                            <li  class="el-select-dropdown__item"><span>宁夏</span></li>
+                            <li  class="el-select-dropdown__item"><span>安徽省</span></li>
+                            <li  class="el-select-dropdown__item"><span>福建省</span></li>
+                            <li  class="el-select-dropdown__item"><span>河南省</span></li>
+                            <li  class="el-select-dropdown__item"><span>青海省</span></li>
+                            <li  class="el-select-dropdown__item"><span>湖北省</span></li>
+                            <li  class="el-select-dropdown__item"><span>黑龙江省</span></li>
+                            <li  class="el-select-dropdown__item"><span>吉林省</span></li>
+                            <li  class="el-select-dropdown__item hover"><span>甘肃省</span></li>
+                            <li  class="el-select-dropdown__item"><span>山西省</span></li>
+                            <li  class="el-select-dropdown__item"><span>四川省</span></li>
+                            <li  class="el-select-dropdown__item"><span>江西省</span></li>
+                            <li  class="el-select-dropdown__item"><span>河北[张家口/秦皇岛/廊坊/承德/唐山]</span></li>
+                            <li  class="el-select-dropdown__item"><span>河北[保定/沧州/石家庄/衡水/邢台/邯郸]</span></li>
+                            <li  class="el-select-dropdown__item"><span>内蒙古</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="common_btn_check" style="background-color: #00bb00;border-radius: 5px;margin:30px 100px;">确认充值</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+<!--<script>-->
+<!--    var vue = new Vue({-->
+<!--        el: '#page',-->
+<!--        data: {-->
+<!--            mobile: '',-->
+<!--            product: [],-->
+<!--            guishu: {},-->
+<!--            active: false-->
+<!--        },-->
+<!--        created: function () {-->
+
+<!--        },-->
+<!--        watch: {-->
+<!--            mobile: function (newValue, oldValue) {-->
+<!--                var value = newValue.replace(/\D/g, '').substring(0, 11);-->
+<!--                if (value.length == 11) {-->
+<!--                    this.initTaocan();-->
+<!--                } else {-->
+<!--                    this.active = false;-->
+<!--                }-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            initTaocan: function () {-->
+<!--                $.post("{:U('get_product')}", {mobile: this.mobile}, function (result) {-->
+<!--                    if (result.errno == 0) {-->
+<!--                        vue.active = true;-->
+<!--                        vue.guishu = result.data.guishu;-->
+<!--                        vue.product = result.data.product;-->
+<!--                    } else {-->
+<!--                        vue.product = [];-->
+<!--                        layer.alert(result.errmsg, {-->
+<!--                            icon: 5,-->
+<!--                            skin: 'layer-ext-moon'-->
+<!--                        })-->
+<!--                    }-->
+<!--                });-->
+<!--            },-->
+<!--            queOrder: function (id, name) {-->
+<!--                if (!this.active) {-->
+<!--                    return;-->
+<!--                }-->
+<!--                var mobile = this.mobile.replace(/\D/g, '').substring(0, 11);-->
+<!--                if (mobile.length != 11) {-->
+<!--                    return;-->
+<!--                }-->
+<!--                var that = this;-->
+<!--                layer.confirm('为号码[' + mobile + "]下单充值产品【" + name + "】?", {-->
+<!--                    btn: ['确定', '取消'] //按钮-->
+<!--                }, function () {-->
+<!--                    vue.subOrder(id, mobile);-->
+<!--                }, function () {-->
+
+<!--                });-->
+<!--            },-->
+<!--            subOrder: function (id, mobile) {-->
+<!--                var index = layer.load(1, {-->
+<!--                    shade: [0.1, '#fff'] //0.1透明度的白色背景-->
+<!--                });-->
+<!--                $.post("{:U('create_order')}", {-->
+<!--                    product_id: id,-->
+<!--                    mobile: mobile-->
+<!--                }, function (result) {-->
+<!--                    layer.closeAll();-->
+<!--                    if (result.errno == 0) {-->
+<!--                        layer.alert(result.errmsg, {-->
+<!--                            icon: 1,-->
+<!--                            skin: 'layer-ext-moon'-->
+<!--                        });-->
+<!--                        vue.mobile = '';-->
+<!--                    } else {-->
+<!--                        layer.alert(result.errmsg, {-->
+<!--                            icon: 5,-->
+<!--                            skin: 'layer-ext-moon'-->
+<!--                        })-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        }-->
+<!--    })-->
+<!--</script>-->
+</html>

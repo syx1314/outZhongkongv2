@@ -125,6 +125,10 @@ class Porder extends Admin
     {
         return view();
     }
+    public function dian_orders()
+    {
+        return view();
+    }
 
     public function get_product()
     {

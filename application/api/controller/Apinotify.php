@@ -65,6 +65,23 @@ class Apinotify extends Base
             echo "fail";
         }
     }
+    public function ruoyi()
+    {
+        $state = intval(I('status'));
+        if ($state == 3) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('ruoyi', I('orderNo'), $_POST);
+             PorderModel::rechargeSusApi(I('orderNo'), "充值成功|接口回调|" . json_encode($_POST));
+            echo "success";
+        } elseif ($state == 4  || $state == 5) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('ruoyi', I('orderNo'), $_POST);
+            PorderModel::rechargeFailApi(I('orderNo'), "充值失败|接口回调|" . json_encode($_POST));
+            echo "success";
+        } else {
+            echo "fail";
+        }
+    }
    //电信慢充
     public function dianxinslow()
     {
@@ -333,6 +350,7 @@ class Apinotify extends Base
         //        交易结果（0充值中 1已到账 2已退款 3已超时/已失败）
       $jsonStr=  file_get_contents("php://input");
        $res=json_decode($jsonStr,true);
+       
         $state = $res['return_code'];
         if ($state == 'SUCCESS') {
             //充值成功,根据自身业务逻辑进行后续处理
@@ -558,6 +576,52 @@ class Apinotify extends Base
                 echo "fail数据库或者日志写入出错".$flag;
             }
         }
+    }
+    //快充3
+    public function kuichong3()
+    {
+        Log::error("返回得数据".http_build_query($_POST));
+        $state = intval(I('status'));
+        if ($state == 2) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('kuichong3', I('externalOrderNo'), $_POST);
+            $result = (PorderModel::rechargeSusApi(I('externalOrderNo'), "充值成功|接口回调|" . json_encode($_POST)));
+            if ($result) {
+                echo "success";
+            }else{
+                echo "fail--《1》数据库或者日志写入出错\n<2> 数据库记录已经存在日志写入过";
+            }
+
+        } else if ($state == 3) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('kuichong3', I('externalOrderNo'), $_POST);
+            $result =(PorderModel::rechargeFailApi(I('externalOrderNo'), "充值失败|接口回调|" . json_encode($_POST)));
+            if ($result) {
+                echo "success";
+            }else{
+                echo "fail--《1》数据库或者日志写入出错\n<2> 数据库记录已经存在日志写入过";
+            }
+        }
+    }
+    public function WJ3WangKuai()
+    {
+       $input= file_get_contents("php://input");
+        Log::error("返回得数据".$input);
+        $input=  json_decode($input);
+         if ($input) {
+           for ($i=0;$i<count($input);$i++) {
+               if ($input[$i]->status == '001') {
+                   $flag = $this->apinotify_log('WJ3WangKuai', $input[$i]->consumerNo, json_encode($input[$i]));
+                   $result = (PorderModel::rechargeSusApi($input[$i]->consumerNo, "充值成功|接口回调|" . json_encode($input[$i])));
+               }else{
+                   $flag = $this->apinotify_log('WJ3WangKuai', $input[$i]->consumerNo, json_encode($input[$i]));
+                   $result = (PorderModel::rechargeFailApi($input[$i]->consumerNo, "充值成功|接口回调|" . json_encode($input[$i])));
+               }
+           }
+           echo "success";
+         }else{
+             echo "fail--《1》数据库或者日志写入出错\n<2> 数据库记录已经存在日志写入过";
+         }
     }
     private function writelog($text)
     {

@@ -4,6 +4,7 @@
 namespace Recharge;
 
 
+use app\common\model\Porder as PorderModel;
 use think\Log;
 
 /**
@@ -48,7 +49,32 @@ class Blink
         $data['sign'] = $this->sign($data);
         return $this->http_get($this->apiurl . 'index/recharge', $data);
     }
-
+//blink
+    public function notify()
+    {
+        $state = intval(I('state'));
+        if ($state == 1) {
+            //充值成功,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yuanren', I('out_trade_num'), $_POST);
+            $result=($flag && PorderModel::rechargeSusApi(I('out_trade_num'), "充值成功|接口回调|" . json_encode($_POST)));
+            if ($result) {
+                echo "success";
+            }else{
+                echo "fail数据库或者日志写入出错".$flag;
+            }
+        } elseif ($state == 2) {
+            //充值失败,根据自身业务逻辑进行后续处理
+            $flag = $this->apinotify_log('yuanren', I('out_trade_num'), $_POST);
+            $result=($flag && PorderModel::rechargeFailApi(I('out_trade_num'), "充值失败|接口回调|" . json_encode($_POST)));
+            if ($result) {
+                echo "success";
+            }else{
+                echo "fail数据库或者日志写入出错".$flag;
+            }
+        } else {
+            echo "fail";
+        }
+    }
 
     /**
      * 查询用户信息
